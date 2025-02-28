@@ -1,0 +1,16 @@
+/* Hier nur für spezielle Anpassungen, die Tailwind nicht abdeckt */
+
+/* Sticky Navbar */
+.sticky {
+    background-color: #381d54;
+    height: 60px;
+  }
+  
+  .sticky img {
+    height: 80px;
+  }
+  
+  .sticky span {
+    font-size: 33px;
+  }
+  
