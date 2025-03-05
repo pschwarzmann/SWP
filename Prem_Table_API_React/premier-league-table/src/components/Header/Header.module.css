@@ -1,54 +1,7 @@
-.navbar {
-    @apply fixed top-[70px] left-0 w-full bg-pl-primary text-white 
-           z-[1000] flex items-center justify-between px-5 h-[200px] 
-           transition-all duration-300;
-  }
-  
-  .sticky {
-    @apply top-0 h-[80px];
-    background-color: #381D54;
-  }
-  
-  .logoContainer {
-    @apply flex items-center gap-4;
-  }
-  
-  .logo {
-    @apply h-[135px] w-auto transition-all duration-300;
-  }
-  
-  .sticky .logo {
-    @apply h-[60px];
-  }
-  
-  .title {
-    @apply text-[35px] font-bold transition-all duration-300;
-  }
-  
-  .sticky .title {
-    @apply text-[28px];
-  }
-  
-  .navContainer {
-    @apply flex flex-col items-end;
-  }
-  
-  .buttonGroup {
-    @apply flex gap-10;
-  }
-  
-  .navButton {
-    @apply text-[20px] no-underline transition-colors duration-200;
-  }
-  
-  .navButton:not(.active) {
-    @apply text-pl-secondary;
-  }
-  
-  .active {
-    @apply text-white font-bold;
-  }
-  
-  .navIndicator {
-    @apply mt-2 h-[5px] w-[75px];
-  }
+/* src/components/Header/Header.module.css */
+.sticky {
+  position: fixed;
+  top: 0;
+  height: 80px;
+  background-color: #381D54;
+}

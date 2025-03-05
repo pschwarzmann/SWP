@@ -1,6 +1,6 @@
+// src/components/Header/Header.jsx
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import styles from './Header.module.css';
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
@@ -14,39 +14,41 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`${styles.navbar} ${isSticky ? styles.sticky : ''}`}>
-      <div className={styles.logoContainer}>
-        <img 
-          src="/img/premierleague-1024x1024.png" 
-          className={styles.logo} 
-          alt="Premier League Logo" 
+    <header className={`fixed top-[70px] w-full bg-[#381D54] text-white z-[1000] px-5 h-[200px] transition-all duration-300 ${isSticky ? '!top-0 !h-[80px]' : ''}`}>
+      <div className="flex items-center gap-4">
+        <img
+          src="/img/premierleague-1024x1024.png"
+          alt="Premier League Logo"
+          className={`h-[135px] transition-all duration-300 ${isSticky ? '!h-[60px]' : ''}`}
         />
-        <span className={styles.title}>Premier League</span>
+        <span className={`text-[35px] font-bold transition-all duration-300 ${isSticky ? '!text-[28px]' : ''}`}>
+          Premier League
+        </span>
       </div>
 
-      <div className={styles.navContainer}>
-        <div className={styles.buttonGroup}>
-          <NavLink 
-            to="/" 
-            className={({ isActive }) => 
-              `${styles.navButton} ${isActive ? styles.active : ''}`
+      <div className="flex flex-col items-end mt-[140px]">
+        <div className="flex gap-10">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `text-[20px] no-underline ${isActive ? 'text-white font-bold' : 'text-[#c6bece]'}`
             }
           >
             Home
           </NavLink>
-          <NavLink 
-            to="/table" 
-            className={({ isActive }) => 
-              `${styles.navButton} ${isActive ? styles.active : ''}`
+          <NavLink
+            to="/table"
+            className={({ isActive }) =>
+              `text-[20px] no-underline ${isActive ? 'text-white font-bold' : 'text-[#c6bece]'}`
             }
           >
             Table
           </NavLink>
         </div>
-        <img 
-          src="/img/kbalken.png" 
-          className={styles.navIndicator} 
-          alt="Navigation indicator" 
+        <img
+          src="/img/kbalken.png"
+          alt="Navigation Indicator"
+          className="h-[5px] w-[75px] mt-2"
         />
       </div>
     </header>

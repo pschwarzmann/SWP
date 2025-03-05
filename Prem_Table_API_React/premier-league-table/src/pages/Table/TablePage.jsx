@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import styles from './TablePage.module.css';
+// src/pages/Table/TablePage.jsx
+import React, { useEffect, useState } from 'react';
 
 export default function TablePage() {
   const [tableData, setTableData] = useState([]);
@@ -7,11 +7,9 @@ export default function TablePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'https://api.openligadb.de/getbltable/bl1/2023'
-        );
+        const response = await fetch('https://api.openligadb.de/getbltable/bl1/2023');
         const data = await response.json();
-        setTableData(data.sort((a, b) => b.points - a.points));
+        setTableData(data);
       } catch (error) {
         console.error('Error fetching table data:', error);
       }
@@ -20,48 +18,52 @@ export default function TablePage() {
   }, []);
 
   return (
-    <div className={styles.tablePage}>
-      <div className={styles.tableBanner}>
-        <h1 className={styles.bannerText}>Table</h1>
+    <div className="mt-[250px] pb-[150px] px-[50px]">
+      <div className="w-full h-[200px] bg-[url('/img/Balken.png')] bg-cover bg-center flex items-center pl-[40px] mb-[50px]">
+        <h1 className="text-white text-[50px] font-bold">Table</h1>
       </div>
 
-      <div className={styles.tableWrapper}>
-        <table className={styles.leagueTable}>
+      <div className="max-w-[1200px] mx-auto">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              <th>Position</th>
-              <th>Club</th>
-              <th>Played</th>
-              <th>Won</th>
-              <th>Drawn</th>
-              <th>Lost</th>
-              <th>GF</th>
-              <th>GA</th>
-              <th>Points</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">Position</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">Club</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">Played</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">Won</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">Drawn</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">Lost</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">GF</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">GA</th>
+              <th className="py-3 px-4 text-[#6c757d] text-[16px] font-bold">Points</th>
             </tr>
           </thead>
           <tbody>
             {tableData.map((team, index) => (
-              <tr key={team.teamId} className={index % 2 === 0 ? styles.evenRow : styles.oddRow}>
-                <td className={styles.positionCell}>
-                  <span>{index + 1}</span>
-                  <span className={styles.dot}>•</span>
+              <tr key={team.teamId} className={index % 2 === 0 ? 'bg-[#f9f9f9]' : 'bg-white'}>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">
+                  <div className="flex items-center justify-center gap-2">
+                    <span>{index + 1}</span>
+                    <span className="text-[20px] text-[#6c757d]">•</span>
+                  </div>
                 </td>
-                <td className={styles.teamCell}>
-                  <img 
-                    src={team.teamIconUrl} 
-                    alt={team.teamName} 
-                    className={styles.teamLogo} 
-                  />
-                  <span>{team.teamName}</span>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={team.teamIconUrl}
+                      alt={team.teamName}
+                      className="h-[35px] w-auto"
+                    />
+                    <span>{team.teamName}</span>
+                  </div>
                 </td>
-                <td>{team.matches}</td>
-                <td>{team.won}</td>
-                <td>{team.draw}</td>
-                <td>{team.lost}</td>
-                <td>{team.goals}</td>
-                <td>{team.opponentGoals}</td>
-                <td className={styles.pointsCell}>{team.points}</td>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">{team.matches}</td>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">{team.won}</td>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">{team.draw}</td>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">{team.lost}</td>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">{team.goals}</td>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle">{team.opponentGoals}</td>
+                <td className="py-4 px-4 text-[14px] h-[60px] align-middle font-bold">{team.points}</td>
               </tr>
             ))}
           </tbody>
