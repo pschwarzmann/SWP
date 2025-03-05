@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Styles */
+.navbar {
+  @apply relative top-[70px] left-0 w-full bg-pl-primary text-white 
+         z-[1000] flex items-center justify-start h-[40px] transition-all;
+}
+
+.logo {
+  @apply h-[135px] w-auto -ml-2.5 transition-all duration-300;
+}
+
+/* Weitere Originalstyles hier übertragen */

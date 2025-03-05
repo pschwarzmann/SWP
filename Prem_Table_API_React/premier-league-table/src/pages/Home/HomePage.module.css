@@ -1,0 +1,32 @@
+.container {
+    @apply pt-[300px] px-[50px];
+  }
+  
+  .heroBanner {
+    @apply w-full h-[200px] bg-[url('/img/Balken.png')] bg-cover bg-center 
+           flex items-center pl-[40px] mb-[200px];
+  }
+  
+  .heroText {
+    @apply text-white text-[50px] font-bold;
+  }
+  
+  .contentGrid {
+    @apply flex gap-8;
+  }
+  
+  .textBlock {
+    @apply flex-1 relative;
+  }
+  
+  .decorationLine {
+    @apply h-[5px] w-[75px] mb-4;
+  }
+  
+  .description {
+    @apply text-pl-primary text-[25px] leading-[1.4];
+  }
+  
+  .featuredImage {
+    @apply h-[750px] w-auto;
+  }
