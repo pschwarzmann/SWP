@@ -1,6 +1,3 @@
-// src/components/common/storageUtils.js
-
-// LocalStorage Funktionen
 export const getLocalItem = (key) => {
     try {
       const item = localStorage.getItem(key);
@@ -23,7 +20,7 @@ export const getLocalItem = (key) => {
     localStorage.removeItem(key);
   };
   
-  // SessionStorage Funktionen
+
   export const getSessionItem = (key) => {
     try {
       const item = sessionStorage.getItem(key);
@@ -46,7 +43,6 @@ export const getLocalItem = (key) => {
     sessionStorage.removeItem(key);
   };
   
-  // Cookie Funktionen
   export const getCookie = (name) => {
     if (typeof document === 'undefined') return null;
     const value = `; ${document.cookie}`;
@@ -65,8 +61,7 @@ export const getLocalItem = (key) => {
   export const removeCookie = (name) => {
     document.cookie = `${name}=; Max-Age=0; path=/`;
   };
-  
-  // React Hook für LocalStorage
+
   export const useLocalStorage = (key, initialValue) => {
     const [storedValue, setStoredValue] = useState(() => {
       try {

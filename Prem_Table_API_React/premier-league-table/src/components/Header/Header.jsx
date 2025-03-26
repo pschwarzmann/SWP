@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
-  const [activeLink, setActiveLink] = useState("/"); // Um den aktiven Link zu verfolgen
+  const [activeTab, setActiveTab] = useState("/");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +12,10 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
   return (
     <>
@@ -38,49 +42,59 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Navigation mit den Buttons */}
-      <nav className="fixed left-0 top-[70px] w-full px-6 flex flex-col items-start gap-4">
-        <NavLink
-          to="/"
-          className={`text-[20px] no-underline ${
-            activeLink === "/" ? "text-white font-bold" : "text-[#c6bece]"
-          }`}
-          onClick={() => setActiveLink("/")}
-        >
-          Home
-        </NavLink>
-        <NavLink
-          to="/table"
-          className={`text-[20px] no-underline ${
-            activeLink === "/table" ? "text-white font-bold" : "text-[#c6bece]"
-          }`}
-          onClick={() => setActiveLink("/table")}
-        >
-          Table
-        </NavLink>
 
-        {/* Balken unter dem aktiven Button */}
-        <div
-          className="mt-2 w-full h-[5px] bg-[url('/img/kbalken.png')] bg-cover bg-left"
-          style={{
-            width: activeLink === "/" ? "75px" : activeLink === "/table" ? "75px" : "0", // Die Breite des Balkens je nach aktivem Link
-            transition: "width 0.3s ease",
-          }}
-        />
-      </nav>
+      <div className="absolute left-[50px] top-[190px] z-[1001] flex gap-10">
+        <div className="relative">
+          <NavLink
+            to="/"
+            onClick={() => handleTabClick("/")}
+            className={({ isActive }) =>
+              `text-[20px] no-underline ${
+                isActive
+                  ? "text-[#381D54] font-bold"
+                  : "text-[#c6bece]"
+              }`
+            }
+          >
+            Home
+          </NavLink>
+          <div
+            className={`absolute bottom-[-10px] left-0 w-[75px] h-[5px] bg-[url('/img/kbalken.png')] bg-cover ${
+              activeTab === "/" ? "block" : "hidden"
+            }`}
+            style={{ left: "-10px", top: "35.5px" }}
+          />
+        </div>
+        <div className="relative">
+          <NavLink
+            to="/table"
+            onClick={() => handleTabClick("/table")}
+            className={({ isActive }) =>
+              `text-[20px] no-underline ${
+                isActive
+                  ? "text-[#381D54] font-bold"
+                  : "text-[#c6bece]"
+              }`
+            }
+          >
+            Table
+          </NavLink>
+          <div
+            className={`absolute bottom-[-10px] left-0 w-[75px] h-[5px] bg-[url('/img/kbalken.png')] bg-cover ${
+              activeTab === "/table" ? "block" : "hidden"
+            }`}
+            style={{ left: "-10px", top: "35.5px" }}
+          />
+        </div>
+      </div>
+
 
       <main className="pt-[230px]">
         <div className="w-full h-[200px] bg-[url('/img/Balken.png')] bg-cover bg-left flex items-center pl-[50px]">
           <h1 className="text-white text-[50px] font-bold">Home</h1>
         </div>
 
-        <div className="mt-[50px] flex justify-center">
-          <img
-            src="/img/kbalken.png"
-            alt="Navigation Indicator"
-            className="h-[5px] w-[75px]"
-          />
-        </div>
+
       </main>
     </>
   );
