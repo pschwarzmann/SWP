@@ -8,7 +8,7 @@ export default function Footer() {
         Für weitere Informationen, besuche:
       </p>
       <a
-        href="https://www.premierleague.com"
+        href="https://www.pornhub.com"
         className="text-white underline hover:no-underline ml-[50px]"
         target="_blank"
         rel="noopener noreferrer"

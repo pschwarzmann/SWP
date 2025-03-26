@@ -1,7 +1,0 @@
-/* src/components/Header/Header.module.css */
-.sticky {
-  position: fixed;
-  top: 0;
-  height: 80px;
-  background-color: #381D54;
-}

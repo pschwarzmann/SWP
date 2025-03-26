@@ -18,11 +18,6 @@ export default function TablePage() {
   }, []);
 
   return (
-    <div className="mt-[250px] pb-[150px] px-[50px]">
-      <div className="w-full h-[200px] bg-[url('/img/Balken.png')] bg-cover bg-center flex items-center pl-[40px] mb-[50px]">
-        <h1 className="text-white text-[50px] font-bold">Table</h1>
-      </div>
-
       <div className="max-w-[1200px] mx-auto">
         <table className="w-full border-collapse">
           <thead>
@@ -69,6 +64,5 @@ export default function TablePage() {
           </tbody>
         </table>
       </div>
-    </div>
   );
 }
