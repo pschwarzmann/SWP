@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed left-0 w-full bg-[#381D54] text-white z-[1000] px-6 h-[60px] flex items-center justify-between transition-all duration-300 ${
+        className={`fixed left-0 w-full bg-[#381D54] text-white z-[1002] px-6 h-[60px] flex items-center justify-between transition-all duration-300 ${
           isSticky ? "!top-0 !h-[80px]" : "top-[70px]"
         }`}
       >
@@ -42,7 +42,6 @@ export default function Header() {
         </div>
       </header>
 
-
       <div className="absolute left-[50px] top-[190px] z-[1001] flex gap-10">
         <div className="relative">
           <NavLink
@@ -50,9 +49,7 @@ export default function Header() {
             onClick={() => handleTabClick("/")}
             className={({ isActive }) =>
               `text-[20px] no-underline ${
-                isActive
-                  ? "text-[#381D54] font-bold"
-                  : "text-[#c6bece]"
+                isActive ? "text-[#381D54] font-bold" : "text-[#c6bece]"
               }`
             }
           >
@@ -71,9 +68,7 @@ export default function Header() {
             onClick={() => handleTabClick("/table")}
             className={({ isActive }) =>
               `text-[20px] no-underline ${
-                isActive
-                  ? "text-[#381D54] font-bold"
-                  : "text-[#c6bece]"
+                isActive ? "text-[#381D54] font-bold" : "text-[#c6bece]"
               }`
             }
           >
@@ -88,13 +83,12 @@ export default function Header() {
         </div>
       </div>
 
-
       <main className="pt-[230px]">
         <div className="w-full h-[200px] bg-[url('/img/Balken.png')] bg-cover bg-left flex items-center pl-[50px]">
-          <h1 className="text-white text-[50px] font-bold">Home</h1>
+          <h1 className="text-white text-[50px] font-bold">
+            {activeTab === "/" ? "Home" : "Table"}
+          </h1>
         </div>
-
-
       </main>
     </>
   );
