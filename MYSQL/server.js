@@ -3,31 +3,21 @@ const express = require("express");
 const mysql = require("mysql2/promise");
 
 const app = express();
-const port = 3006;
+const port = 3000;
 
-// Middleware
 app.use(express.json());
 
-// Sigma-Verbindung aufbauen
-let Sigma;
+let Sigma = null;
 
-(async () => {
-  try {
-    Sigma = await mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      port: process.env.DB_PORT,
-    });
-    console.log("Mit Sigma verbunden!");
-  } catch (err) {
-    console.error("Datenbankverbindung fehlgeschlagen:", err);
-    process.exit(1);
+// Middleware: blockiert Anfragen, bis DB verbunden ist
+app.use((req, res, next) => {
+  if (!Sigma) {
+    return res.status(503).send("Datenbankverbindung wird noch hergestellt...");
   }
-})();
+  next();
+});
 
-// Route: /hello?
+// Route: /hello?name=...
 app.get("/hello", async (req, res) => {
   const name = req.query.name;
   if (!name) return res.status(400).send("Name fehlt");
@@ -78,10 +68,10 @@ app.post("/personen", async (req, res) => {
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [vorname, nachname, plz, strasse, ort, telefonnummer, email]
     );
-    res.status(201).send({ message: "Personen hinzugefügt", id: result.insertId });
+    res.status(201).send({ message: "Person hinzugefügt", id: result.insertId });
   } catch (err) {
     console.error("Fehler beim Einfügen:", err);
-    res.status(500).send("Fehler beim Speichern der Personen");
+    res.status(500).send("Fehler beim Speichern der Person");
   }
 });
 
@@ -101,10 +91,10 @@ app.get("/personen/:id", async (req, res) => {
 
   try {
     const [result] = await Sigma.execute("SELECT * FROM personen WHERE id = ?", [id]);
-    if (result.length === 0) return res.status(404).send("Personen nicht gefunden");
+    if (result.length === 0) return res.status(404).send("Person nicht gefunden");
     res.status(200).json(result[0]);
   } catch (err) {
-    res.status(500).send("Fehler beim Abrufen der Personen");
+    res.status(500).send("Fehler beim Abrufen der Person");
   }
 });
 
@@ -114,13 +104,30 @@ app.delete("/personen/:id", async (req, res) => {
 
   try {
     const [result] = await Sigma.execute("DELETE FROM personen WHERE id = ?", [id]);
-    if (result.affectedRows === 0) return res.status(404).send("Personen nicht gefunden");
-    res.status(200).send("Personen gelöscht");
+    if (result.affectedRows === 0) return res.status(404).send("Person nicht gefunden");
+    res.status(200).send("Person gelöscht");
   } catch (err) {
-    res.status(500).send("Fehler beim Löschen der Personen");
+    res.status(500).send("Fehler beim Löschen der Person");
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server läuft unter http://localhost:${port}`);
-});
+// Verbindung zur DB aufbauen und Server starten
+(async () => {
+  try {
+    Sigma = await mysql.createConnection({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      port: process.env.DB_PORT,
+    });
+    console.log("Mit Sigma verbunden!");
+
+    app.listen(port, () => {
+      console.log(`Server läuft unter http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.error("Datenbankverbindung fehlgeschlagen:", err);
+    process.exit(1);
+  }
+})();
